@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 class RegionBase(BaseModel):
     code: str
-    name: str
 
 
 class RegionCreate(RegionBase):

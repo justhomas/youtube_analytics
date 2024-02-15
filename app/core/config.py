@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str
     PROJECT_SLUG: str
     SQLALCHEMY_DATABASE_URI: str
+    DATA_FOLDER: str
 
     class Config:
         case_sensitive = True

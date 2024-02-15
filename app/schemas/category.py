@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 class CategoryBase(BaseModel):
     title: str
+    category_id: Optional[int]
 
 
 class CategoryCreate(CategoryBase):
