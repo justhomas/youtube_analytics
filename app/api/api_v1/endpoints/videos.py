@@ -1,6 +1,6 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app import crud, models, schemas
@@ -11,12 +11,26 @@ router = APIRouter()
 
 @router.get("/videos", response_model=List[schemas.Video])
 def read_videos(
-    db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
+    db: Session = Depends(deps.get_db),
+    skip: int = Query(0, alias="skip", ge=0),
+    limit: int = Query(100, alias="limit", le=100),
+    region_id: int | None = None,
+    category_id: int | None = None,
 ) -> Any:
     """
-    Retrieve videos.
+    Retrieve videos with optional filters.
     """
-    videos = crud.video.get_multi(db, skip=skip, limit=limit)
+    filters = {
+        "region_id": region_id,
+        "category_id": category_id,
+    }
+
+    videos = crud.video.get_multi(
+        db=db,
+        skip=skip,
+        limit=limit,
+        filters=filters,
+    )
     return videos
 
 

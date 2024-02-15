@@ -20,6 +20,7 @@ class VideoBase(BaseModel):
     ratings_disabled : bool
     video_error_or_removed : bool
     description: str | None
+    region_id: int
 
 
 
